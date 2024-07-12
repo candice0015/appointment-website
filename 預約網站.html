@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>預約網站</title>
+  <style>
+    /* 簡單的CSS樣式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+    }
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+    nav li {
+      margin-right: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+    }
+    main {
+      padding: 20px;
+    }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+    .meeting-room-info {
+      margin-bottom: 20px;
+    }
+    .available-slots,
+    .booked-slots,
+    .reservation-history {
+      margin-bottom: 10px;
+    }
+    .reservation-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .reservation-table th, .reservation-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .admin-panel {
+      background-color: #f1f1f1;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .admin-panel h2 {
+      margin-top: 0;
+    }
+    .admin-panel table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .admin-panel th, .admin-panel td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .admin-panel .role-select {
+      margin-bottom: 10px;
+    }
+    .calendar {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .calendar th, .calendar td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      cursor: pointer;
+    }
+    .calendar th {
+      background-color: #f1f1f1;
+    }
+    .calendar td.today {
+      background-color: #e6f2ff;
+    }
+    .calendar td.booked {
+      background-color: #ffcdd2;
+    }
+    .reservation-history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .reservation-history-table th, .reservation-history-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .reservation-form {
+      margin-top: 20px;
+    }
+    .reservation-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .reservation-form select {
+      width: 200px;
+    }
+    .reservation-form input[type="submit"] {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">首頁</a></li>
+        <li><a href="#">預約車輛</a></li>
+        <li><a href="#">預約會議室</a></li>
+        <li><a href="#">歷史預約紀錄</a></li>
+        <li><a href="#">聯絡我們</a></li>
+        <li><a href="#">後台管理</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>歡迎使用預約網站</h1>
+    <p>您可以在這裡預約車輛和會議室,並查看歷史預約紀錄。</p>
+    <h2>當月日曆</h2>
+    <table class="calendar">
+      <thead>
+        <tr>
+          <th>一</th>
+          <th>二</th>
+          <th>三</th>
+          <th>四</th>
+          <th>五</th>
+          <th>六</th>
+          <th>日</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>7</td>
+          <td class="booked" onclick="showBookedInfo(7)">8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>11</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td>14</td>
+          <td>15</td>
+          <td>16</td>
+          <td>17</td>
+          <td>18</td>
+          <td>19</td>
+        </tr>
+        <tr>
+          <td>20</td>
+          <td>21</td>
+          <td>22</td>
+          <td>23</td>
+          <td>24</td>
+          <td>25</td>
+          <td>26</td>
+        </tr>
+        <tr>
+          <td>27</td>
+          <td>28</td>
+          <td>29</td>
+          <td>30</td>
+          <td>31</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="booked-info" style="display: none;">
+      <h3>已預借資訊</h3>
+      <p>會議室: 小會議室1</p>
+      <p>預約人: John Doe</p>
+      <p>預約用途: 團隊會議</p>
+      <p>預約時段: 13:00 - 15:00</p>
+    </div>
+    <h2>預約車輛</h2>
+    <form>
+      <!-- 預約車輛的表單 -->
+    </form>
+    <h2>預約會議室</h2>
+    <div class="meeting-room-info">
+      <h3>可預約會議室</h3>
+      <ul>
+        <li>小會議室1</li>
+        <li>小會議室2</li>
+        <li>中會議室</li>
+        <li>大會議室</li>
+      </ul>
+    </div>
+    <div class="reservation-form">
+      <h3>選擇預約時段</h3>
+      <label for="meeting-room">會議室:</label>
+      <select id="meeting-room">
+        <option value="small-room-1">小會議室1</option>
+        <option value="small-room-2">小會議室2</option>
+        <option value="medium-room">中會議室</option>
+        <option value="large-room">大會議室</option>
+      </select>
+      <label for="start-time">開始時間:</label>
+      <select id="start-time">
+        <option value="9:00">9:00</option>
+        <option value="9:30">9:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <option value="11:30">11:30</option>
+        <option value="12:00">12:00</option>
+        <option value="12:30">12:30</option>
+        <option value="13:00">13:00</option>
+        <option value="13:30">13:30</option>
+        <option value="14:00">14:00</option>
+        <option value="14:30">14:30</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+        <option value="17:00">17:00</option>
+        <option value="17:30">17:30</option>
+        <option value="18:00">18:00</option>
+      </select>
+      <label for="duration">持續時間:</label>
+      <select id="duration">
+        <option value="30">30 分鐘</option>
+        <option value="60">1 小時</option>
+        <option value="90">1.5 小時</option>
+        <option value="120">2 小時</option>
+      </select>
+      <p id="reservation-time-display"></p>
+      <label for="purpose">預約用途:</label>
+      <input type="text" id="purpose" placeholder="請輸入預約用途">
+      <input type="submit" value="提交預約" onclick="submitReservation()">
+    </div>
+    <h2>歷史預約紀錄</h2>
+    <table class="reservation-history-table">
+      <thead>
+        <tr>
+          <th>預約日期</th>
+          <th>預約類型</th>
+          <th>預約人</th>
+          <th>預約用途</th>
+          <th>預約狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024-07-10</td>
+          <td>中會議室</td>
+          <td>John Doe</td>
+          <td>團隊會議</td>
+          <td>已完成</td>
+        </tr>
+        <tr>
+          <td>2024-07-05</td>
+          <td>車輛</td>
+          <td>Jane Smith</td>
+          <td>外勤拜訪</td>
+          <td>已取消</td>
+        </tr>
+        <tr>
+          <td>2024-06-28</td>
+          <td>小會議室1</td>
+          <td>Michael Johnson</td>
+          <td>客戶溝通</td>
+          <td>已完成</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="admin-panel">
+      <h2>後台管理</h2>
+      <div class="role-select">
+        <label for="role">選擇角色:</label>
+        <select id="role">
+          <option value="admin">管理員</option>
+          <option value="manager">經理</option>
+          <option value="staff">員工</option>
+        </select>
+      </div>
+      <h3>車輛管理</h3>
+      <table>
+        <!-- 車輛管理表格 -->
+      </table>
+      <h3>會議室管理</h3>
+      <table>
+        <!-- 會議室管理表格 -->
+      </table>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; 2024 預約網站. All rights reserved.</p>
+  </footer>
+  <script>
+    function showBookedInfo(date) {
+      var bookedInfo = document.getElementById("booked-info");
+      bookedInfo.style.display = "block";
+    }
+
+    function submitReservation() {
+      var meetingRoom = document.getElementById("meeting-room").value;
+      var startTime = document.getElementById("start-time").value;
+      var duration = document.getElementById("duration").value;
+      var purpose = document.getElementById("purpose").value;
+
+      // 計算結束時間
+      var startHour = parseInt(startTime.split(":")[0]);
+      var startMinute = parseInt(startTime.split(":")[1]);
+      var durationMinutes = parseInt(duration);
+      var endHour = Math.floor((startHour * 60 + startMinute + durationMinutes) / 60);
+      var endMinute = (startHour * 60 + startMinute + durationMinutes) % 60;
+      var endTime = endHour.toString().padStart(2, '0') + ":" + endMinute.toString().padStart(2, '0');
+
+      // 顯示預約時段
+      var reservationTimeDisplay = document.getElementById("reservation-time-display");
+      reservationTimeDisplay.textContent = "預約時段: " + startTime + " - " + endTime;
+
+      // 處理預約邏輯
+      console.log("預約會議室: " + meetingRoom);
+      console.log("開始時間: " + startTime);
+      console.log("結束時間: " + endTime);
+      console.log("預約用途: " + purpose);
+
+      // 在這裡添加您的預約邏輯
+      // 例如:
+      // - 檢查會議室是否可用
+      // - 將預約資訊保存到資料庫
+      // - 更新日曆上的預約狀態
+      // - 向使用者顯示預約成功的訊息
+    }
+  </script>
+</body>
+</html>
